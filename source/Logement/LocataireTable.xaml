@@ -1,0 +1,94 @@
+﻿<Window x:Class="Logement.LocataireTable"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Logement"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        Title="" Height="500" Width="720"
+        WindowState="Maximized"
+        >
+
+
+    <Grid Name="mainGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="350" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Grid VerticalAlignment="top">
+            <StackPanel Orientation="Horizontal"  VerticalAlignment="Top" HorizontalAlignment="Left">
+
+                <Button  Click="addHandler" Foreground="BlueViolet" Style="{StaticResource IconButton}">
+                    Ajouter
+                </Button>
+            </StackPanel>
+
+        </Grid>
+        <StackPanel Grid.Row="1" Grid.Column="1" HorizontalAlignment="Stretch">
+            <TextBlock Grid.Row="1"  HorizontalAlignment="Center" Text="Liste des Locataires"
+                   FontWeight="24" FontSize="24" Margin="25,5"
+                   />
+            <TextBox Name="filter" materialDesign:HintAssist.Hint="Recherche" TextChanged="recherche" CharacterCasing="Upper"
+                     Width="200" HorizontalAlignment="Left" />
+        </StackPanel>
+
+        <Grid  Grid.Row="2" >
+            <StackPanel Name="FORM" Margin="10,0" Grid.Row="1">
+                <TextBox Name="matricule" KeyDown="enter_key_down" CharacterCasing="Upper" materialDesign:HintAssist.Hint="Matricule" />
+                <TextBox Name="nom_complet" KeyDown="enter_key_down" CharacterCasing="Upper" materialDesign:HintAssist.Hint="Nom Complet" />
+                <ComboBox Name="grade" KeyDown="enter_key_down"  PreviewTextInput="combo_PreviewTextInput" SelectedIndex="0" IsEditable="False"
+                          materialDesign:HintAssist.Hint="Grade">
+                    <ComboBoxItem Content="PCE" />
+                    <ComboBoxItem Content="MILITAIRE" />
+                    <ComboBoxItem Content="PCA" />
+                </ComboBox>
+                <ComboBox Name="etat_locataire" KeyDown="enter_key_down" PreviewTextInput="combo_PreviewTextInput" SelectedIndex="0" IsEditable="False"
+                          materialDesign:HintAssist.Hint="Etat">
+                    <ComboBoxItem Content="ACTIF" />
+                    <ComboBoxItem Content="DECEDE" />
+                    <ComboBoxItem Content="RETRAITE" />
+                    <ComboBoxItem Content="CMLD" />
+                    <ComboBoxItem Content="LICENCIE" />
+                </ComboBox>
+                <ComboBox Name="position" KeyDown="enter_key_down" PreviewTextInput="combo_PreviewTextInput" SelectedIndex="0" IsEditable="True"
+                          materialDesign:HintAssist.Hint="Position">
+                    <ComboBoxItem Content="BCL" />
+                    <ComboBoxItem Content="H-BCL" />
+                </ComboBox>
+                <Button Name="locataire_form_mode" Content="Ajouter" Click="validerEvent" Margin="80,2" Width="120" FontSize="16"  Grid.ColumnSpan="2" Background="#754254" />
+            </StackPanel>
+        </Grid>
+        <DataGrid Name="datagrid" Grid.Row="2" Grid.Column="1"  HorizontalAlignment="Stretch" SelectionChanged="DataGrid_SelectionChanged">
+            <DataGrid.Resources>
+                <Style TargetType="DataGridRow">
+                    <EventSetter Event="MouseDoubleClick" Handler="listDataGridDbClick" />
+                </Style>
+            </DataGrid.Resources>
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <!--<MenuItem Header="Éditer" Click="edit_appartement_click" />-->
+                    <MenuItem Header="Éditer" Click="edit_locataire_click" />
+                    <MenuItem Header="Supprimer" Click="delete_locataire_click" />
+                </ContextMenu>
+            </DataGrid.ContextMenu>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Id" Visibility="Hidden" Binding="{Binding Path=id}"/>
+                <DataGridTextColumn Header="Nom  Prenom" Width="auto" Binding="{Binding Path=nom_complet}"/>
+                <DataGridTextColumn Header="Matricule" Width="auto" Binding="{Binding Path=matricule}"/>
+                <DataGridTextColumn Header="Grade" Width="auto" Binding="{Binding Path=grade}"/>
+                <DataGridTextColumn Header="Etat" Width="auto" Binding="{Binding Path=etat_locataire}"/>
+                <DataGridTextColumn Header="Position" Width="auto" Binding="{Binding Path=position}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+    </Grid>
+
+</Window>

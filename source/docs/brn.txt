@@ -1,0 +1,53 @@
+first csv import :
+
+update appartement set date_entree = null, date_sortie = null;
+
+update appartement set observation= '';
+
+update appartement set batiment = 'VILLA' where batiment = 'villa';
+					   
+update locataire set matricule = replace(matricule,',','.');
+update appartement set matricule = replace(matricule,',','.');
+update locataire set matricule = replace(matricule,' ','');
+update appartement set matricule = replace(matricule,' ','');
+				   
+update appartement set etat_locataire = upper(etat_locataire),
+					   position = upper(position),
+					   grade = upper(grade),
+					   matricule = upper(matricule),
+					   nom_complet = upper(nom_complet),
+					   batiment = upper(batiment);
+					   
+					   
+
+update locataire set etat_locataire = upper(etat_locataire),
+					   position = upper(position),
+					   grade = upper(grade),
+					   matricule = upper(matricule),
+					   nom_complet = upper(nom_complet);
+					   
+
+update appartement set nom_complet =  replace(nom_complet,'VIDE','');
+
+update locataire set nom_complet =  replace(nom_complet,'VIDE','');
+
+update appartement set nom_complet =  replace(nom_complet,'VID','');
+
+update locataire set nom_complet =  replace(nom_complet,'VID','');
+
+
+update appartement set etat_locataire = trim(etat_locataire),
+					   position = trim(position),
+					   grade = trim(grade),
+					   matricule = trim(matricule),
+					   nom_complet = trim(nom_complet),
+					   batiment = trim(batiment);
+					   
+					   
+
+update locataire set etat_locataire = trim(etat_locataire),
+					   position = trim(position),
+					   grade = trim(grade),
+					   matricule = trim(matricule),
+					   nom_complet = trim(nom_complet);
+
