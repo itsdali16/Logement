@@ -296,8 +296,10 @@ namespace Logement
         private void checkDouble(object sender, TextCompositionEventArgs e)
         {
             string str = ((TextBox)sender).Text;
+            string separator = System.Threading.Thread.CurrentThread.CurrentCulture.NumberFormat.NumberDecimalSeparator;
             //bool vcond = (e.Text == "," || e.Text == ".") && (!str.Contains(",") && !str.Contains("."));
-            bool vcond = e.Text == "," && !str.Contains(",");
+            bool vcond = e.Text == separator && !str.Contains(separator);
+            //bool vcond = e.Text == "," && !str.Contains(",");
             e.Handled = !(Function.isInt(e.Text) || vcond);
         }
 
